@@ -7,6 +7,7 @@ require("mason-lspconfig").setup({
         "lua_ls",
         "dockerls",
         "yamlls",
+        "bashls",
     },
     automatic_installation = true,
 })
@@ -99,7 +100,7 @@ lspconfig.docker_compose_language_service.setup({
     capabilities = capabilities,
 })
 
--- YAML LSP
+-- YAML
 lspconfig.yamlls.setup({
     capabilities = capabilities,
     settings = {
@@ -110,6 +111,12 @@ lspconfig.yamlls.setup({
             },
         },
     },
+})
+
+-- Bash
+lspconfig.bashls.setup({
+    capabilities = capabilities,
+    filetypes = { "sh", "bash" },
 })
 
 -- Auto import

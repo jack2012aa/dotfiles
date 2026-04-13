@@ -66,6 +66,7 @@ require("lazy").setup({
                 python = { "ruff_organize_imports", "ruff_format" },
                 c = { "clang-format" },
                 cpp = { "clang-format" },
+                sh = { "shfmt" },
             },
             format_on_save = {
                 timeout_ms = 500,
