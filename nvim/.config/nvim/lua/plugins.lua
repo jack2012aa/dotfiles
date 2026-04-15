@@ -109,6 +109,19 @@ require("lazy").setup({
             vim.keymap.set({ "v", "n" }, "<leader>ca", require("actions-preview").code_actions)
         end,
     },
+
+    -- Bookmarks
+    {
+        "MattesGroeger/vim-bookmarks",
+        dependencies = {
+            "tom-anders/telescope-vim-bookmarks.nvim",
+        },
+        config = function()
+            vim.g.bookmark_save_per_working_dir = 1
+            vim.g.bookmark_auto_save = 1
+            require("telescope").load_extension("vim_bookmarks")
+        end,
+    },
 })
 
 -- Telescope Shortcut
@@ -119,6 +132,18 @@ keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "最近開啟的檔案"
 keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, { desc = "搜尋代碼" })
 keymap.set("n", "<leader>fb", builtin.buffers, { desc = "已開啟的 Buffer" })
 keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "全域字串搜尋" })
+keymap.set("n", "<leader>fm", function()
+    require("telescope").extensions.vim_bookmarks.all({
+        attach_mappings = function(_, map)
+            local bookmark_actions = require("telescope").extensions.vim_bookmarks.actions
+            -- 在 Normal 模式下 (按 Esc 後)，按 dd 刪除書籤
+            map("n", "dd", bookmark_actions.delete_selected_or_at_cursor)
+            -- 在 Insert 模式下 (打字搜尋時)，按 Ctrl+d 刪除書籤
+            map("i", "<C-d>", bookmark_actions.delete_selected_or_at_cursor)
+            return true
+        end,
+    })
+end, { desc = "搜尋標籤" })
 
 -- Git
 local gs = require("gitsigns")
