@@ -9,6 +9,28 @@ require("lazy").setup({
     "hrsh7th/cmp-nvim-lsp",
     "L3MON4D3/LuaSnip",
 
+    -- Git difference
+    {
+        "NeogitOrg/neogit",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "sindrets/diffview.nvim",
+            "nvim-telescope/telescope.nvim",
+        },
+        config = true,
+    },
+
+    -- Keymap hints
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        init = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 300
+        end,
+        opts = {},
+    },
+
     -- Python
     {
         "linux-cultist/venv-selector.nvim",
@@ -150,3 +172,5 @@ local gs = require("gitsigns")
 keymap.set("n", "<leader>gb", gs.blame_line, { desc = "Git Blame (查看這行是誰寫的)" })
 keymap.set("n", "<leader>gd", gs.preview_hunk, { desc = "Git Diff (查看這塊改了什麼)" })
 keymap.set("n", "<leader>gh", builtin.git_commits, { desc = "Git History (查看 Commit 紀錄)" })
+keymap.set("n", "<leader>gr", gs.reset_hunk, { desc = "退回 Git 區塊變更" })
+keymap.set("n", "<leader>gR", gs.reset_buffer, { desc = "退回整個檔案" })
