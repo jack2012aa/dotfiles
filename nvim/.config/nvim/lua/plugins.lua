@@ -4,6 +4,15 @@ require("lazy").setup({
     "williamboman/mason.nvim",        -- 管理 LSP 伺服器的工具
     "williamboman/mason-lspconfig.nvim", -- 橋接 Mason 與 lspconfig
 
+    -- Java
+    {
+        "nvim-java/nvim-java",
+        config = function()
+            require("java").setup()
+            vim.lsp.enable("jdtls")
+        end,
+    },
+
     -- 自動補全 UI
     "hrsh7th/nvim-cmp",
     "hrsh7th/cmp-nvim-lsp",

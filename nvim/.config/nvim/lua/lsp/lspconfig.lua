@@ -8,6 +8,9 @@ require("mason-lspconfig").setup({
         "dockerls",
         "yamlls",
         "bashls",
+        "jdtls",
+        "java-test",
+        "java-debug-adapter",
     },
     automatic_installation = true,
 })
