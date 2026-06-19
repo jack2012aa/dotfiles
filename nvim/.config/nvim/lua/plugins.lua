@@ -183,3 +183,4 @@ keymap.set("n", "<leader>gd", gs.preview_hunk, { desc = "Git Diff (查看這塊�
 keymap.set("n", "<leader>gh", builtin.git_commits, { desc = "Git History (查看 Commit 紀錄)" })
 keymap.set("n", "<leader>gr", gs.reset_hunk, { desc = "退回 Git 區塊變更" })
 keymap.set("n", "<leader>gR", gs.reset_buffer, { desc = "退回整個檔案" })
+keymap.set("n", "<leader>gg", "<cmd>Neogit<CR>", { desc = "開啟 Neogit 狀態面板" })
