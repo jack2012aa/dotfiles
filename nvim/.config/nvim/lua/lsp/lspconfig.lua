@@ -8,24 +8,12 @@ require("mason-lspconfig").setup({
         "dockerls",
         "yamlls",
         "bashls",
-        "jdtls",
-        "java-test",
-        "java-debug-adapter",
     },
     automatic_installation = true,
 })
 
 local lspconfig = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
--- Java
-require("lspconfig").jdtls.setup({
-    on_attach = function(client, bufnr)
-        -- 關閉 jdtls 的格式化功能
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormattingProvider = false
-    end,
-})
 
 -- Python
 lspconfig.basedpyright.setup({

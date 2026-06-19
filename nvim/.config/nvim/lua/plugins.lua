@@ -6,10 +6,32 @@ require("lazy").setup({
 
     -- Java
     {
-        "nvim-java/nvim-java",
+          "rcasia/neotest-java",
+          ft = "java",
+          dependencies = { "mfussenegger/nvim-dap" },
+    },
+  
+    {
+        'nvim-java/nvim-java',
         config = function()
-            require("java").setup()
-            vim.lsp.enable("jdtls")
+        require('java').setup()
+            vim.lsp.enable('jdtls')
+        end,
+    },
+    
+    {
+        "nvim-neotest/neotest",
+        dependencies = {
+          "nvim-neotest/nvim-nio",
+          "nvim-lua/plenary.nvim",
+          "nvim-treesitter/nvim-treesitter",
+        },
+        config = function()
+            require("neotest").setup({
+                adapters = {
+                    require("neotest-java")({}),
+                },
+            })
         end,
     },
 
@@ -60,7 +82,7 @@ require("lazy").setup({
                 return
             end
             configs.setup({
-                ensure_installed = { "c", "python", "lua", "vim", "go", "markdown" },
+                ensure_installed = { "c", "python", "lua", "vim", "go", "markdown", "java" },
                 highlight = { enable = true },
                 indent = { enable = true },
             })
@@ -184,3 +206,24 @@ keymap.set("n", "<leader>gh", builtin.git_commits, { desc = "Git History (查看
 keymap.set("n", "<leader>gr", gs.reset_hunk, { desc = "退回 Git 區塊變更" })
 keymap.set("n", "<leader>gR", gs.reset_buffer, { desc = "退回整個檔案" })
 keymap.set("n", "<leader>gg", "<cmd>Neogit<CR>", { desc = "開啟 Neogit 狀態面板" })
+
+-- Test
+vim.keymap.set("n", "<leader>tr", function()
+  require("neotest").run.run()
+end, { desc = "執行單一測試 (Run Nearest)" })
+
+vim.keymap.set("n", "<leader>tf", function()
+  require("neotest").run.run(vim.fn.expand("%"))
+end, { desc = "執行當前檔案所有測試 (Run File)" })
+
+vim.keymap.set("n", "<leader>ts", function()
+  require("neotest").summary.toggle()
+end, { desc = "切換測試結構樹 (Test Summary)" })
+
+vim.keymap.set("n", "<leader>to", function()
+  require("neotest").output.open({ enter = true, auto_close = true })
+end, { desc = "顯示單一測試詳細輸出 (Floating Output)" })
+
+vim.keymap.set("n", "<leader>tp", function()
+  require("neotest").output_panel.toggle()
+end, { desc = "切換底部輸出面板 (Output Panel)" })
